@@ -1,19 +1,32 @@
-class AppRoutes{
+import 'package:deputados/screens/home_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:deputados/screens/list_daputs_screen.dart';
+import 'package:deputados/screens/details_daputs_screen.dart';
 
-  static const listDeputados = '/listDeputados';
-  static const listDeputadosDetail = '/listDeputadosDetail';
+class RoutesApp extends StatelessWidget {
+  const RoutesApp({super.key});
 
-
-  String getRoute(String route){
-    switch(route){
-      case 'listDeputados':
-        return listDeputados;
-      case 'listDeputadosDetail':
-        return listDeputadosDetail;
-      default:
-        return '';
-    }
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Deputy App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const ListDeputados(),
+        '/home': (context) => const HomeScreen(),
+        '/deputadoDetalhes': (context) => const DeputadoPage(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/details' && settings.arguments is int) {
+          return MaterialPageRoute(
+            builder: (context) => const ListDeputados(),
+          );
+        }
+        return null;
+      },
+    );
   }
-
-  String getInitialPage() => listDeputados;
 }

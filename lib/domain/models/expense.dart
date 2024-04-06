@@ -1,4 +1,4 @@
-class ExpenseModel {
+class Expense {
   
   final int year;
   final String cnpjCpfSupplier;
@@ -18,7 +18,7 @@ class ExpenseModel {
   final double glossValue;
   final double netValue;
 
-  ExpenseModel({
+  Expense({
     required this.year,
     required this.cnpjCpfSupplier,
     required this.documentCode,
@@ -38,8 +38,8 @@ class ExpenseModel {
     required this.netValue,
   });
 
-  factory ExpenseModel.fromJson(Map<String, dynamic> json) {
-    return ExpenseModel(
+  factory Expense.fromJson(Map<String, dynamic> json) {
+    return Expense(
       year: json['ano'],
       cnpjCpfSupplier: json['cnpjCpfFornecedor'],
       documentCode: json['codDocumento'],
@@ -58,5 +58,9 @@ class ExpenseModel {
       glossValue: json['valorGlosa'],
       netValue: json['valorLiquido'],
     );
+  }
+
+  static List<Expense> fromJsonList(List<dynamic> json) {
+    return json.map((expense) => Expense.fromJson(expense)).toList();
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../domain/models/deputados.dart';
-import 'package:deputados/screens/details_daputs_screen.dart';
 
 class ListDepsWidget extends StatelessWidget {
   final List<Deputados> listaDeputados;
@@ -10,6 +9,14 @@ class ListDepsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void navigateToDeputadoPage(int index) {
+      Navigator.pushNamed(
+        context,
+        '/deputadoDetalhes',
+        arguments: index,
+      );
+    }
+
     return ListView.builder(
       shrinkWrap: true,
       itemBuilder: (context, index) {
@@ -42,12 +49,7 @@ class ListDepsWidget extends StatelessWidget {
                         fontSize: 30, fontWeight: FontWeight.w800),
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const DeputadoPage(),
-                      ),
-                    );
+                    navigateToDeputadoPage(listaDeputados[index].id);
                   },
                   subtitle: Row(
                     children: [

@@ -1,13 +1,16 @@
+import 'package:deputados/domain/models/deputado.dart';
 import 'package:flutter/material.dart';
 
 class ProfileDateWidget extends StatelessWidget {
-  const ProfileDateWidget({super.key});
+  final Deputado deputado;
+
+  const ProfileDateWidget({super.key, required this.deputado});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        Row(
+        const Row(
           children: [
             Text(
               'Data de Nascimento:',
@@ -16,12 +19,19 @@ class ProfileDateWidget extends StatelessWidget {
           ],
         ),
         Row(
-          children: [Text('30/04/1981', style: TextStyle(fontSize: 20))],
+          children: [
+            Text(
+              deputado.birthDate != null
+                  ? deputado.birthDate!
+                  : 'Data não disponível',
+              style: const TextStyle(fontSize: 20),
+            )
+          ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
-        Row(
+        const Row(
           children: [
             Text(
               'Naturalidade:',
@@ -32,14 +42,19 @@ class ProfileDateWidget extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: Text('São Paulo (SP)', style: TextStyle(fontSize: 20)),
+              child: Text(
+                deputado.birthCity != null
+                    ? '${deputado.birthCity} - ${deputado.birthUf}'
+                    : 'Naturalidade não disponível',
+                style: const TextStyle(fontSize: 20),
+              ),
             )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
-        Row(
+        const Row(
           children: [
             Text(
               'Gabinete:',
@@ -51,13 +66,15 @@ class ProfileDateWidget extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'Senado Federal Anexo 2 11º Pavimento ',
-                style: TextStyle(fontSize: 16),
+                deputado.office != null
+                    ? 'Nome ${deputado.office?['nome']}, Prédio ${deputado.office?['predio']}, Sala ${deputado.office?['sala']}, Telefone ${deputado.office?['telefone']}, Email s${deputado.office?['email']}'
+                    : 'Gabinete não disponível',
+                style: const TextStyle(fontSize: 16),
               ),
             )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 15,
         )
       ],

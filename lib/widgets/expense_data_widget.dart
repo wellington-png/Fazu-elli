@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:month_year_picker/month_year_picker.dart';
 
 class ExpenseDataWidget extends StatefulWidget {
   const ExpenseDataWidget({super.key});
@@ -22,35 +21,9 @@ class _ExpenseDataWidgetState extends State<ExpenseDataWidget> {
           Text(DateFormat().add_yM().format(_selected!)),
         TextButton(
           child: const Text('Selecionar mês e ano'),
-          onPressed: () => _onPressed(context: context),
+          onPressed: () => null,
         )
       ],
     );
-  }
-
-  Future<void> _onPressed({
-    required BuildContext context,
-    String? locale,
-  }) async {
-    final localeObj = locale != null ? Locale(locale) : null;
-    final selected = await showMonthYearPicker(
-      context: context,
-      initialDate: _selected ?? DateTime.now(),
-      firstDate: DateTime(2019),
-      lastDate: DateTime(2030),
-      locale: localeObj,
-    );
-    // final selected = await showDatePicker(
-    //   context: context,
-    //   initialDate: _selected ?? DateTime.now(),
-    //   firstDate: DateTime(2019),
-    //   lastDate: DateTime(2022),
-    //   locale: localeObj,
-    // );
-    if (selected != null) {
-      setState(() {
-        _selected = selected;
-      });
-    }
   }
 }

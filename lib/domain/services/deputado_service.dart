@@ -23,7 +23,7 @@ class DeputadoService {
     final response = await http.get(Uri.parse('$baseUrl/$id'));
     if (response.statusCode == 200) {
       final deputado = jsonDecode(response.body)['dados'];
-      return Deputado.fromJson(deputado);
+      return Deputado.fromMap(deputado);
     } else {
       throw Exception('Erro ao carregar deputado');
     }
