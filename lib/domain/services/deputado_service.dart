@@ -36,9 +36,10 @@ class DeputadoService {
     if (nome != null) queryParams['nome'] = nome;
     if (partido != null) queryParams['siglaPartido'] = partido;
     if (estado != null) queryParams['siglaUf'] = estado;
+    queryParams['ordem'] = 'ASC';
+    queryParams['ordenarPor'] = 'nome';
 
     final Uri uri = Uri.parse(baseUrl).replace(queryParameters: queryParams);
-
     final response = await http.get(uri, headers: {
       'Accept': 'application/json',
     });

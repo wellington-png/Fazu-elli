@@ -8,36 +8,83 @@ class ListExpenseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget buildDetailRow(String label, String value) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 120.0, // Largura fixa para o rótulo
+              child: Text(
+                label,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Expanded(
+              child: Text(value),
+            ),
+          ],
+        ),
+      );
+    }
+
     showViewExpenseDialog(Expense expense) {
       return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(expense.expenseType),
-            content: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+            title: const Text(
+              'Detalhes da Despesa',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Tipo de despesa: ${expense.expenseType}'),
-                  Text(
-                      'Valor: ${NumberFormat.currency(locale: 'pt_BR').format(expense.documentValue)}'),
-                  Text('Data: ${expense.documentDate}'),
-                  Text('Número do documento: ${expense.documentNumber}'),
-                  Text(
-                      'Número do ressarcimento: ${expense.reimbursementNumber}'),
-                  Text('Parcela: ${expense.installment}'),
-                  Text('Tipo de documento: ${expense.documentType}'),
-                  Text(
-                      'Valor da glosa: ${NumberFormat.currency(locale: 'pt_BR').format(expense.glossValue)}'),
-                  Text(
-                      'Valor líquido: ${NumberFormat.currency(locale: 'pt_BR').format(expense.netValue)}'),
-                ]),
+                  const SizedBox(height: 10.0),
+                  buildDetailRow('Tipo de despesa:', expense.expenseType),
+                  buildDetailRow(
+                    'Valor:',
+                    NumberFormat.currency(locale: 'pt_BR')
+                        .format(expense.documentValue),
+                  ),
+                  buildDetailRow('Data:', expense.documentDate),
+                  buildDetailRow(
+                      'Número do documento:', expense.documentNumber),
+                  buildDetailRow(
+                      'Número do ressarcimento:', expense.reimbursementNumber),
+                  buildDetailRow('Parcela:', expense.installment.toString()),
+                  buildDetailRow('Tipo de documento:', expense.documentType),
+                  buildDetailRow(
+                    'Valor da glosa:',
+                    NumberFormat.currency(locale: 'pt_BR')
+                        .format(expense.glossValue),
+                  ),
+                  buildDetailRow(
+                    'Valor líquido:',
+                    NumberFormat.currency(locale: 'pt_BR')
+                        .format(expense.netValue),
+                  ),
+                  const SizedBox(height: 10.0),
+                ],
+              ),
+            ),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('Fechar'),
+                child: const Text(
+                  'Fechar',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue, // Altere a cor conforme necessário
+                  ),
+                ),
               ),
             ],
           );

@@ -60,13 +60,12 @@ class _FrentesScreenState extends State<FrentesScreen>
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            if (frentesStore.errorMessage.isNotEmpty ||
-                frentesStore.isLoading)
+            if (frentesStore.errorMessage.isNotEmpty || frentesStore.isLoading)
               const SizedBox(height: 10),
             frentesStore.errorMessage.isNotEmpty
                 ? Text(frentesStore.errorMessage)
                 : const SizedBox(),
-            if (frentesStore.isLoading)
+            if (frentesStore.isLoading && frentesStore.frentes.isEmpty)
               const Center(child: CircularProgressIndicator())
             else
               Flexible(
