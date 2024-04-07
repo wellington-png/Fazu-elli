@@ -1,8 +1,11 @@
 import 'package:deputados/domain/services/deputado_service.dart';
+import 'package:deputados/domain/services/expense_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'domain/repositories/deputado_repository.dart';
+import 'domain/repositories/expense_repository.dart';
 import 'domain/stores/deputado_store.dart';
+import 'domain/stores/expense_store.dart';
 import 'routes/router.dart';
 
 void main() {
@@ -14,14 +17,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final deputadoRepository = DeputadoRepository(
       DeputadoService(),
+    );
+    final expenseRepository = ExpenseRepository(
+      ExpenseService(),
     );
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (context) => DeputadoStore(deputadoRepository),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ExpenseStore(expenseRepository),
         ),
       ],
       child: MaterialApp(
