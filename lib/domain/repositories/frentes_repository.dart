@@ -9,7 +9,7 @@ abstract class IFrentesRepository {
 }
 
 class FrentesRepository implements IFrentesRepository {
-  FrentesService _frentesService;
+  final FrentesService _frentesService;
 
   FrentesRepository(this._frentesService);
 

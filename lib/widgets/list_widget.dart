@@ -1,3 +1,4 @@
+import 'package:deputados/constants/party_logo.dart';
 import 'package:flutter/material.dart';
 
 import '../domain/models/deputados.dart';
@@ -46,7 +47,7 @@ class ListDepsWidget extends StatelessWidget {
                   title: Text(
                     listaDeputados[index].nome,
                     style: const TextStyle(
-                        fontSize: 30, fontWeight: FontWeight.w800),
+                        fontSize: 25, fontWeight: FontWeight.w800),
                   ),
                   onTap: () {
                     navigateToDeputadoPage(listaDeputados[index].id);
@@ -57,7 +58,8 @@ class ListDepsWidget extends StatelessWidget {
                         listaDeputados[index].siglaPartido,
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600),
-                      )
+                      ),
+
                     ],
                   ),
                 ),

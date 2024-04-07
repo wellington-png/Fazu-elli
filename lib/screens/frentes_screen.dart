@@ -1,7 +1,5 @@
-import 'package:deputados/domain/models/membro.dart';
 import 'package:deputados/widgets/list_frentes_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:deputados/domain/models/frente.dart';
 import 'package:deputados/domain/stores/frentes_store.dart';
 import 'package:provider/provider.dart';
 
@@ -43,76 +41,45 @@ class _FrentesScreenState extends State<FrentesScreen>
     await frentesStore.getFrentes();
   }
 
-  bool _isOpened = false;
-
-  void toogleDialogFrente() {
-    setState(() {
-      _isOpened = !_isOpened;
-    });
-  }
-
-  void onPressedFrente(Frente frente) {
-    final frentesStore = Provider.of<FrentesStore>(context, listen: false);
-    frentesStore.getFrenteById(frente.id);
-    // frentesStore.getMembrosByFrenteId(frente.id);
-    Frente frenteDetail = frentesStore.frente!;
-    showViewFrentesDialog(frenteDetail);
-  }
-
   @override
   Widget build(BuildContext context) {
     final frentesStore = Provider.of<FrentesStore>(context);
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              if (frentesStore.errorMessage.isNotEmpty ||
-                  frentesStore.isLoading)
-                const SizedBox(height: 10),
-              frentesStore.errorMessage.isNotEmpty
-                  ? Text(frentesStore.errorMessage)
-                  : const SizedBox(),
-              if (frentesStore.isLoading)
-                Center(child: const CircularProgressIndicator())
-              else
-                Flexible(
-                  child: ListFrentesWidget(
-                    frentes: frentesStore.frentes,
-                    onPressed: onPressedFrente,
-                  ),
+    void navigateToDeputadoPage(int index) {
+      Navigator.pushNamed(
+        context,
+        '/deputadoDetalhes',
+        arguments: index,
+      );
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Frentes Parlamentares'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            if (frentesStore.errorMessage.isNotEmpty ||
+                frentesStore.isLoading)
+              const SizedBox(height: 10),
+            frentesStore.errorMessage.isNotEmpty
+                ? Text(frentesStore.errorMessage)
+                : const SizedBox(),
+            if (frentesStore.isLoading)
+              const Center(child: CircularProgressIndicator())
+            else
+              Flexible(
+                child: ListFrentesWidget(
+                  frentes: frentesStore.frentes,
+                  onMemberClick: (index) {
+                    navigateToDeputadoPage(index);
+                  },
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       ),
-    );
-  }
-
-  showViewFrentesDialog(Frente frente) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(frente.titulo),
-          content: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(frente.email!),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Fechar'),
-            ),
-          ],
-        );
-      },
     );
   }
 }

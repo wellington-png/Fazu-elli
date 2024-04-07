@@ -1,3 +1,4 @@
+import 'package:deputados/constants/party_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:deputados/widgets/expansive_widget.dart';
 import 'package:deputados/widgets/profile_data_widget.dart';
@@ -133,8 +134,9 @@ class _DeputadoPageState extends State<DeputadoPage>
                                 ),
                                 Row(
                                   children: [
-                                    const CircleAvatar(
+                                    CircleAvatar(
                                       backgroundColor: Colors.black,
+                                      child: Image(image: NetworkImage(PartyLogo.getLogo(deputado?.siglaPartido ?? ''))),
                                     ),
                                     const SizedBox(width: 10),
                                     Text(

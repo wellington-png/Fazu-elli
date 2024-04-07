@@ -1,17 +1,18 @@
 class Membro {
   final int id;
-  final String uri;
-  final String nome;
-  final String siglaPartido;
-  final String uriPartido;
-  final String siglaUf;
-  final int idLegislatura;
-  final String urlFoto;
-  final String email;
-  final String titulo;
-  final int codTitulo;
+  final String? uri;
+  final String? nome;
+  final String? siglaPartido;
+  final String? uriPartido;
+  final String? siglaUf;
+  final int? idLegislatura;
+  final String? urlFoto;
+  final String? email;
+  final String? titulo;
+  final int? codTitulo;
   final DateTime? dataInicio;
   final DateTime? dataFim;
+  final Map<String, dynamic>? coordenador;
 
   Membro({
     required this.id,
@@ -27,6 +28,7 @@ class Membro {
     required this.codTitulo,
     this.dataInicio,
     this.dataFim,
+    this.coordenador,
   });
 
   factory Membro.fromJson(Map<String, dynamic> json) {
@@ -46,6 +48,7 @@ class Membro {
           ? DateTime.parse(json['dataInicio'])
           : null,
       dataFim: json['dataFim'] != null ? DateTime.parse(json['dataFim']) : null,
+      coordenador: json['coordenador'],
     );
   }
 

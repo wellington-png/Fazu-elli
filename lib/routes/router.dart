@@ -14,17 +14,17 @@ class RoutesApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/frentes',
+      initialRoute: '/',
       routes: {
-        '/': (context) => const ListDeputados(),
-        '/home': (context) => const HomeScreen(),
+        '/': (context) => const HomeScreen(),
+        '/listDeputados': (context) => const ListDeputados(),
         '/deputadoDetalhes': (context) => const DeputadoPage(),
         '/frentes': (context) => const FrentesScreen(),
       },
       onGenerateRoute: (settings) {
-        if (settings.name == '/details' && settings.arguments is int) {
+        if (settings.name == '/deputadoDetalhes' && settings.arguments is int) {
           return MaterialPageRoute(
-            builder: (context) => const ListDeputados(),
+            builder: (context) => const DeputadoPage(),
           );
         }
         return null;
