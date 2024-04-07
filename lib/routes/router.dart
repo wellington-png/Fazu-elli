@@ -2,6 +2,7 @@ import 'package:deputados/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:deputados/screens/list_daputs_screen.dart';
 import 'package:deputados/screens/details_daputs_screen.dart';
+import 'package:deputados/screens/frentes_screen.dart';
 
 class RoutesApp extends StatelessWidget {
   const RoutesApp({super.key});
@@ -13,11 +14,12 @@ class RoutesApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
+      initialRoute: '/frentes',
       routes: {
         '/': (context) => const ListDeputados(),
         '/home': (context) => const HomeScreen(),
         '/deputadoDetalhes': (context) => const DeputadoPage(),
+        '/frentes': (context) => const FrentesScreen(),
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/details' && settings.arguments is int) {

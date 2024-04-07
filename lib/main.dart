@@ -1,11 +1,12 @@
+import 'package:deputados/domain/repositories/deputado_repository.dart';
+import 'package:deputados/domain/repositories/expense_repository.dart';
+import 'package:deputados/domain/repositories/frentes_repository.dart';
 import 'package:deputados/domain/services/deputado_service.dart';
 import 'package:deputados/domain/services/expense_service.dart';
+import 'package:deputados/domain/services/frentes_service.dart';
+import 'package:deputados/domain/stores/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'domain/repositories/deputado_repository.dart';
-import 'domain/repositories/expense_repository.dart';
-import 'domain/stores/deputado_store.dart';
-import 'domain/stores/expense_store.dart';
 import 'routes/router.dart';
 
 void main() {
@@ -13,24 +14,19 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    final deputadoRepository = DeputadoRepository(
-      DeputadoService(),
-    );
-    final expenseRepository = ExpenseRepository(
-      ExpenseService(),
-    );
+    final deputadoRepository = DeputadoRepository(DeputadoService());
+    final expenseRepository = ExpenseRepository(ExpenseService());
+    final frentesRepository = FrentesRepository(FrentesService());
+
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) => DeputadoStore(deputadoRepository),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ExpenseStore(expenseRepository),
-        ),
+        ...AppProviders.getDeputadoProvider(deputadoRepository),
+        ...AppProviders.getExpenseProvider(expenseRepository),
+        ...AppProviders.getFrentesProvider(frentesRepository),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
