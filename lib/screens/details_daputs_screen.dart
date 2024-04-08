@@ -91,7 +91,8 @@ class _DeputadoPageState extends State<DeputadoPage>
                                 children: [
                                   IconButton(
                                     onPressed: () {
-                                      Navigator.pushNamed(context, '/listDeputados');
+                                      Navigator.pushNamed(
+                                          context, '/listDeputados');
                                     },
                                     style: ButtonStyle(
                                       shape: MaterialStateProperty.all(
@@ -138,8 +139,9 @@ class _DeputadoPageState extends State<DeputadoPage>
                                     CircleAvatar(
                                       backgroundColor: Colors.black,
                                       child: Image(
-                                          image: NetworkImage(PartyLogo.getLogo(
-                                              deputado?.siglaPartido ?? ''))),
+                                        image: NetworkImage(PartyLogo.getLogo(
+                                            deputado?.siglaPartido ?? '')),
+                                      ),
                                     ),
                                     const SizedBox(width: 10),
                                     Text(

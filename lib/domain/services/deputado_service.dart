@@ -46,6 +46,8 @@ class DeputadoService {
       'Accept': 'application/json',
     });
 
+    print(uri.toString());
+
     if (response.statusCode == 200) {
       final List<dynamic> deputadosJson = jsonDecode(response.body)['dados'];
       return Deputados.fromJsonList(deputadosJson);

@@ -15,14 +15,19 @@ class ProfileDateWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildInfoRow('Apelido:', deputado.nickname ?? 'Não disponível'),
-            _buildInfoRow('Nome Civil:', deputado.civilName ?? 'Não disponível'),
+            _buildInfoRow(
+                'Nome Civil:', deputado.civilName ?? 'Não disponível'),
             _buildInfoRow('Situação:', deputado.situation ?? 'Não disponível'),
-            _buildInfoRow('Condição Eleitoral:', deputado.condition ?? 'Não disponível'),
+            _buildInfoRow(
+                'Condição Eleitoral:', deputado.condition ?? 'Não disponível'),
             _buildInfoRow('CPF:', deputado.cpf ?? 'Não disponível'),
             _buildInfoRow('Sexo:', deputado.sex ?? 'Não disponível'),
-            _buildInfoRow('Data de Nascimento:', deputado.birthDate ?? 'Não disponível'),
-            _buildInfoRow('Cidade de Nascimento:', deputado.birthCity ?? 'Não disponível'),
-            _buildInfoRow('Escolaridade:', deputado.education ?? 'Não disponível'),
+            _buildInfoRow(
+                'Data de Nascimento:', deputado.birthDate ?? 'Não disponível'),
+            _buildInfoRow('Cidade de Nascimento:',
+                deputado.birthCity ?? 'Não disponível'),
+            _buildInfoRow(
+                'Escolaridade:', deputado.education ?? 'Não disponível'),
             _buildInfoRow(
               'Gabinete:',
               deputado.office != null
@@ -52,7 +57,8 @@ class ProfileDateWidget extends StatelessWidget {
             Expanded(
               child: Text(
                 value,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
             ),
           ],
