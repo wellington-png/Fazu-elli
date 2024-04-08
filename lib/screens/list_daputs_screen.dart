@@ -38,8 +38,7 @@ class _DropdownMenuState<T> extends State<DropdownMenu<T>> {
         setState(() {
           _selectedItem = newValue;
         });
-        widget.onSelected(
-            newValue); // Chamando a função onSelected com o novo valor
+        widget.onSelected(newValue);
       },
       items: widget.items.map<DropdownMenuItem<T>>((item) {
         return DropdownMenuItem<T>(
@@ -112,6 +111,12 @@ class _ListDeputadosState extends State<ListDeputados>
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamed(context, '/');
+          },
+        ),
         title: const Text('Deputados'),
       ),
       body: Padding(
@@ -123,13 +128,15 @@ class _ListDeputadosState extends State<ListDeputados>
               Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: hintText,
-                        labelText: labelText,
-                        border: const OutlineInputBorder(),
+                    child: SizedBox(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: hintText,
+                          labelText: labelText,
+                          border: const OutlineInputBorder(),
+                        ),
+                        controller: textController,
                       ),
-                      controller: textController,
                     ),
                   ),
                   const SizedBox(width: 10),

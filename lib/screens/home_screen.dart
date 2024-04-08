@@ -8,17 +8,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Fazuélli',
-                    style:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 24)),
-                Text('Saiba mais sobre os deputados federais.',
-                    style: TextStyle(fontSize: 12)),
-              ],
-            ),
+          title:const  Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Fazuélli',
+                  style:
+                      TextStyle(fontWeight: FontWeight.w600, fontSize: 24)),
+              Text('Saiba mais sobre os deputados federais.',
+                  style: TextStyle(fontSize: 12)),
+            ],
           )),
       body: SafeArea(
         child: Center(
@@ -109,21 +107,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
-// const Text('Home Screen'),
-//                   ElevatedButton(
-//                     onPressed: () {
-//                       Navigator.pushNamed(context, '/listDeputados');
-//                     },
-//                     child: const Text('Listar Deputados'),
-//                   ),
-//                   ElevatedButton(
-//                     onPressed: () {
-//                       Navigator.pushNamed(context, '/frentes');
-//                     },
-//                     child: const Text('Listar Frentes'),
-//                   ),
-               
