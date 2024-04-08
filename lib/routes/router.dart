@@ -10,6 +10,7 @@ class RoutesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Deputy App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
