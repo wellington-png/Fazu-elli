@@ -1,5 +1,7 @@
 import 'package:deputados/domain/models/deputados.dart';
 import 'package:deputados/domain/models/deputado.dart';
+import 'package:deputados/domain/models/historico.dart';
+import 'package:deputados/domain/models/ocupacao.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -49,6 +51,26 @@ class DeputadoService {
       return Deputados.fromJsonList(deputadosJson);
     } else {
       throw Exception('Erro ao carregar deputados');
+    }
+  }
+
+  Future<List<Ocupacao>> getOcupacoesByDeputadoId(int id) async {
+    final response = await http.get(Uri.parse('$baseUrl/$id/ocupacoes'));
+    if (response.statusCode == 200) {
+      final List<dynamic> ocupacoesJson = jsonDecode(response.body)['dados'];
+      return Ocupacao.fromJsonList(ocupacoesJson);
+    } else {
+      throw Exception('Erro ao carregar ocupações');
+    }
+  }
+
+  Future<List<Historico>> getHistoricoByDeputadoId(int id) async {
+    final response = await http.get(Uri.parse('$baseUrl/$id/historico'));
+    if (response.statusCode == 200) {
+      final List<dynamic> historicoJson = jsonDecode(response.body)['dados'];
+      return Historico.fromJsonList(historicoJson);
+    } else {
+      throw Exception('Erro ao carregar histórico');
     }
   }
 }

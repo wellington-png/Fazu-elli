@@ -74,12 +74,9 @@ class _ExpenseDataWidgetState extends State<ExpenseDataWidget> {
           buttonIcon: const Icon(Icons.arrow_drop_down),
           buttonText: const Text('Selecione o mês e ano'),
           onConfirm: (results) {
-            _monthSelected = results;
             setState(() {
-              expensesStore.getExpenses(
-                  id: ModalRoute.of(context)!.settings.arguments as int,
-                  year: _yearSelected,
-                  month: _monthSelected);
+              _monthSelected = results;
+              _loadExpenses(); // Atualiza os dados ao confirmar a seleção do mês
             });
           },
         ),
@@ -106,10 +103,7 @@ class _ExpenseDataWidgetState extends State<ExpenseDataWidget> {
           onConfirm: (results) {
             setState(() {
               _yearSelected = results;
-              expensesStore.getExpenses(
-                  id: ModalRoute.of(context)!.settings.arguments as int,
-                  year: _yearSelected,
-                  month: _monthSelected);
+              _loadExpenses(); // Atualiza os dados ao confirmar a seleção do ano
             });
           },
         ),
@@ -117,12 +111,11 @@ class _ExpenseDataWidgetState extends State<ExpenseDataWidget> {
           children: [
             Text('Total de despesas: ${expenses.length}'),
             Text(
-                'Valor total: ${expenses.fold(0.0, (total, expense) => total + expense.netValue).toStringAsFixed(2)}'),
+                'Valor total: ${expenses.fold(0.0, (total, expense) => total + expense.netValue!).toStringAsFixed(2)}'),
             const SizedBox(
               height: 10,
             ),
-            SizedBox(
-                height: 300, child: ListExpenseWidget(expenses: expenses)),
+            SizedBox(height: 300, child: ListExpenseWidget(expenses: expenses)),
           ],
         ),
       ],
@@ -134,7 +127,7 @@ class _ExpenseDataWidgetState extends State<ExpenseDataWidget> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(expense.supplierName),
+          title: Text(expense.supplierName!),
           content: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,

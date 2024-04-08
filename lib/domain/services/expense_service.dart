@@ -8,9 +8,8 @@ class ExpenseService {
 
   Future<List<Expense>> getExpenses(int id,
       {List<int>? year, List<int>? month}) async {
-    final Uri uri = Uri.parse('$baseUrl/$id/despesas')
+    final Uri uri = Uri.parse('$baseUrl/$id/despesas?ordem=ASC&ordenarPor=ano&itens=1000')
         .replace(queryParameters: _buildQueryParameters(year, month));
-
     final response = await http.get(uri, headers: {
       'Accept': 'application/json',
     });

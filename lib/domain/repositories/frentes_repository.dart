@@ -3,9 +3,9 @@ import 'package:deputados/domain/models/membro.dart';
 import 'package:deputados/domain/services/frentes_service.dart';
 
 abstract class IFrentesRepository {
-  Future<List<Frente>> getFrentes();
+  Future<List<Frente>> getFrentes({required int pagina, required int itens});
   Future<Frente> getFrenteById(int id);
-  Future<List<Membro>> getMembrosByFrenteId(int frenteId); // Novo método
+  Future<List<Membro>> getMembrosByFrenteId(int frenteId);
 }
 
 class FrentesRepository implements IFrentesRepository {
@@ -14,8 +14,12 @@ class FrentesRepository implements IFrentesRepository {
   FrentesRepository(this._frentesService);
 
   @override
-  Future<List<Frente>> getFrentes() async {
-    return _frentesService.getFrentes();
+  Future<List<Frente>> getFrentes(
+      {required int pagina, required int itens}) async {
+    return _frentesService.getFrentes(
+      pagina: pagina,
+      itens: itens,
+    );
   }
 
   @override
@@ -27,4 +31,5 @@ class FrentesRepository implements IFrentesRepository {
   Future<List<Membro>> getMembrosByFrenteId(int frenteId) async {
     return _frentesService.getMembrosByFrenteId(frenteId);
   }
+
 }

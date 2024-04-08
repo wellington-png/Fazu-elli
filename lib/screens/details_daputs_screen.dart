@@ -55,13 +55,14 @@ class _DeputadoPageState extends State<DeputadoPage>
     final idDeputado = ModalRoute.of(context)!.settings.arguments as int;
     await deputadoStore.getDeputadoById(idDeputado);
     await expenseStore.getExpenses(id: idDeputado);
+    await deputadoStore.getOcupacoesByDeputadoId(idDeputado);
+    await deputadoStore.getHistoricoByDeputadoId(idDeputado);
   }
 
   @override
   Widget build(BuildContext context) {
     final deputadoStore = Provider.of<DeputadoStore>(context);
     final Deputado? deputado = deputadoStore.deputado;
-    
 
     return SafeArea(
       child: Scaffold(
@@ -90,7 +91,7 @@ class _DeputadoPageState extends State<DeputadoPage>
                                 children: [
                                   IconButton(
                                     onPressed: () {
-                                      Navigator.pushNamed(context, '/');
+                                      Navigator.pushNamed(context, '/listDeputados');
                                     },
                                     style: ButtonStyle(
                                       shape: MaterialStateProperty.all(
@@ -136,7 +137,9 @@ class _DeputadoPageState extends State<DeputadoPage>
                                   children: [
                                     CircleAvatar(
                                       backgroundColor: Colors.black,
-                                      child: Image(image: NetworkImage(PartyLogo.getLogo(deputado?.siglaPartido ?? ''))),
+                                      child: Image(
+                                          image: NetworkImage(PartyLogo.getLogo(
+                                              deputado?.siglaPartido ?? ''))),
                                     ),
                                     const SizedBox(width: 10),
                                     Text(
@@ -155,6 +158,68 @@ class _DeputadoPageState extends State<DeputadoPage>
                                   title: 'Perfil',
                                   child: ProfileDateWidget(
                                     deputado: deputado!,
+                                  ),
+                                ),
+                                ExpansiveWidget(
+                                  title: 'Ocupações',
+                                  child: Column(
+                                    children: deputadoStore.ocupacoes
+                                        .map((ocupacao) => Card(
+                                              child: ListTile(
+                                                  title: Text(ocupacao.titulo),
+                                                  subtitle: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                          'Entidade: ${ocupacao.entidade ?? 'Não informado'}'),
+                                                      Text(
+                                                          'Ano de início: ${ocupacao.anoInicio ?? 'Não informado'}'),
+                                                      Text(
+                                                          'Ano de fim: ${ocupacao.anoFim ?? 'Não informado'}'),
+                                                    ],
+                                                  )),
+                                            ))
+                                        .toList(),
+                                  ),
+                                ),
+                                ExpansiveWidget(
+                                  title: 'Histórico',
+                                  child: Column(
+                                    children: deputadoStore.historico.isNotEmpty
+                                        ? deputadoStore.historico
+                                            .map((historico) => Card(
+                                                  child: ListTile(
+                                                      title:
+                                                          Text(historico.nome),
+                                                      subtitle: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                              'Nome Eleitoral: ${historico.nomeEleitoral}'),
+                                                          Text(
+                                                              'Sigla do Partido: ${historico.siglaPartido}'),
+                                                          Text(
+                                                              'Sigla do Estado: ${historico.siglaUf}'),
+                                                          Text(
+                                                              'Data e Hora: ${historico.dataHora}'),
+                                                          Text(
+                                                              'Situação: ${historico.situacao}'),
+                                                          Text(
+                                                              'Condição Eleitoral: ${historico.condicaoEleitoral}'),
+                                                          Text(
+                                                              'Descrição do Status: ${historico.descricaoStatus}'),
+                                                        ],
+                                                      )),
+                                                ))
+                                            .toList()
+                                        : [
+                                            const Text(
+                                                'Nenhum histórico encontrado')
+                                          ],
                                   ),
                                 ),
                                 const ExpansiveWidget(

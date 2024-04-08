@@ -7,8 +7,19 @@ class FrentesService {
   static const String baseUrl =
       'https://dadosabertos.camara.leg.br/api/v2/frentes';
 
-  Future<List<Frente>> getFrentes() async {
-    final response = await http.get(Uri.parse(baseUrl), headers: {
+  Future<List<Frente>> getFrentes({
+    required int pagina,
+    required int itens,
+  }) async {
+
+    
+    final response = await http.get(Uri.parse(baseUrl).replace(
+      queryParameters: {
+        'pagina': pagina.toString(),
+        'itens': itens.toString(),
+      },
+    
+    ), headers: {
       'Accept': 'application/json',
     });
     if (response.statusCode == 200) {

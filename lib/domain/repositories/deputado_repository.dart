@@ -1,5 +1,7 @@
 import 'package:deputados/domain/models/deputado.dart';
 import 'package:deputados/domain/models/deputados.dart';
+import 'package:deputados/domain/models/historico.dart';
+import 'package:deputados/domain/models/ocupacao.dart';
 import 'package:deputados/domain/services/deputado_service.dart';
 
 abstract class IDeputadoRepository {
@@ -7,6 +9,9 @@ abstract class IDeputadoRepository {
   Future<Deputado> getDeputadoById(int id);
   Future<List<Deputados>> getDeputadosByParams(
       {String? nome, String? partido, String? estado});
+  Future<List<Ocupacao>> getOcupacoesByDeputadoId(int id);
+  Future<List<Historico>> getHistoricoByDeputadoId(int id);
+
 }
 
 class DeputadoRepository implements IDeputadoRepository {
@@ -29,5 +34,15 @@ class DeputadoRepository implements IDeputadoRepository {
   @override
   Future<Deputado> getDeputadoById(int id) async {
     return _deputadoService.getDeputadoById(id);
+  }
+
+  @override
+  Future<List<Ocupacao>> getOcupacoesByDeputadoId(int id) {
+    return _deputadoService.getOcupacoesByDeputadoId(id);
+  }
+
+  @override
+  Future<List<Historico>> getHistoricoByDeputadoId(int id) async {
+    return _deputadoService.getHistoricoByDeputadoId(id);
   }
 }

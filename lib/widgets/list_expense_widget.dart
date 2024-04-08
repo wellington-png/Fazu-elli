@@ -46,19 +46,19 @@ class ListExpenseWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10.0),
-                  buildDetailRow('Tipo de despesa:', expense.expenseType),
+                  buildDetailRow('Tipo de despesa:', expense.expenseType!),
                   buildDetailRow(
                     'Valor:',
                     NumberFormat.currency(locale: 'pt_BR')
                         .format(expense.documentValue),
                   ),
-                  buildDetailRow('Data:', expense.documentDate),
+                  buildDetailRow('Data:', expense.documentDate!),
                   buildDetailRow(
-                      'Número do documento:', expense.documentNumber),
+                      'Número do documento:', expense.documentNumber!),
                   buildDetailRow(
-                      'Número do ressarcimento:', expense.reimbursementNumber),
+                      'Número do ressarcimento:', expense.reimbursementNumber!),
                   buildDetailRow('Parcela:', expense.installment.toString()),
-                  buildDetailRow('Tipo de documento:', expense.documentType),
+                  buildDetailRow('Tipo de documento:', expense.documentType!),
                   buildDetailRow(
                     'Valor da glosa:',
                     NumberFormat.currency(locale: 'pt_BR')
@@ -97,7 +97,7 @@ class ListExpenseWidget extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (context, index) => Card(
         child: ListTile(
-          title: Text(expenses[index].expenseType),
+          title: Text(expenses[index].expenseType!),
           subtitle: Text(expenses[index].netValue.toString()),
           trailing: Text(expenses[index].documentDate.toString()),
           onTap: () {

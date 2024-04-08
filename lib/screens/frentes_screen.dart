@@ -14,6 +14,22 @@ class _FrentesScreenState extends State<FrentesScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool _loadedData = false;
+  int _page = 1;
+
+  int get page => _page;
+  bool get isPagination => _page > 1;
+  void nextPage() {
+    setState(() {
+      _page++;
+    });
+  }
+
+  void previousPage() {
+    if (_page == 1) return;
+    setState(() {
+      _page--;
+    });
+  }
 
   @override
   void initState() {
@@ -52,6 +68,21 @@ class _FrentesScreenState extends State<FrentesScreen>
       );
     }
 
+    void onClickNextPage() {
+      setState(() {
+        nextPage();
+      });
+      frentesStore.getFrentes(pagina: page);
+    }
+
+    void onClickPreviousPage() {
+      if (isPagination == false) return;
+      setState(() {
+        previousPage();
+      });
+      frentesStore.getFrentes(pagina: page);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Frentes Parlamentares'),
@@ -76,6 +107,20 @@ class _FrentesScreenState extends State<FrentesScreen>
                   },
                 ),
               ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                    onPressed: isPagination ? onClickPreviousPage : null,
+                    icon: const Icon(Icons.arrow_back)),
+                Text('$page'),
+                IconButton(
+                    onPressed: frentesStore.frentes.isNotEmpty
+                        ? onClickNextPage
+                        : null,
+                    icon: const Icon(Icons.arrow_forward)),
+              ],
+            ),
           ],
         ),
       ),

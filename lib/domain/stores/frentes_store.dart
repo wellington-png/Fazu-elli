@@ -23,12 +23,15 @@ class FrentesStore extends ChangeNotifier {
   String _errorMessage = '';
   String get errorMessage => _errorMessage;
 
-  Future<void> getFrentes() async {
+  Future<void> getFrentes({int pagina = 1, int itens = 50}) async {
     _isLoading = true;
     _errorMessage = '';
 
     try {
-      _frentes = await _frentesRepository.getFrentes();
+      _frentes = await _frentesRepository.getFrentes(
+        pagina: pagina,
+        itens: itens,
+      );
     } catch (error) {
       _errorMessage = 'Erro ao carregar as frentes: $error';
     } finally {

@@ -55,7 +55,6 @@ class FrenteCard extends StatelessWidget {
 
   Future<void> _showMembrosDialog(BuildContext context, Frente frente) async {
     final frentesStore = Provider.of<FrentesStore>(context, listen: false);
-    // await frentesStore.getFrenteById(frente.id);
     await frentesStore.getMembrosByFrenteId(frente.id);
     List<Membro> membros = frentesStore.membros;
     await frentesStore.getFrenteById(frente.id);
